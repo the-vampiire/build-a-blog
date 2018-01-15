@@ -58,6 +58,14 @@ def add_post():
   new_post = add_blog_post(title, body)
   return render_template("index.html", blog_posts = get_blog_posts(), new_post = new_post)
 
+"""
+Alternate: http://flask.pocoo.org/docs/0.12/quickstart/#variable-rules
+
+@app.route('/blog/<int:id>', methods=["GET"])
+def blog_page(id):
+  # use id as a variable in route handling
+"""
+
 @app.route('/blog', methods=["GET"])
 def blog_page():
   blog_post_id = request.args.get('id')
