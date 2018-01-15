@@ -1,7 +1,6 @@
 from flask import Flask, request, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime as dt
-import cgi
 from private import DB_URI # stores credentials (blocked from push in .gitignore)
 
 app = Flask(__name__)
@@ -13,7 +12,7 @@ app.config['SQLALCHEMY_ECHO'] = False
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-#
+# Model
 class Blog(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   title = db.Column(db.String(140), nullable = False)
@@ -29,7 +28,7 @@ class Blog(db.Model):
 
 # ----------------- SERVER
 
-# Helper Functions
+# DB Helper Functions
 
 def get_blog_post(id):
   return Blog.query.get(id)
@@ -43,6 +42,7 @@ def add_blog_post(title, body):
   db.session.commit()
   return new_post
 
+# ----------------- ROUTES
 @app.route('/post', methods=["POST"])
 def add_post():
   title = request.form["title"]
