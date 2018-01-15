@@ -1,0 +1,49 @@
+<style>
+  .error {
+    color: red
+  }
+</style>
+
+<h1>Add a new blog post.</h1>
+<form action="/post" method="post">
+  <label>
+    Blog Title: <input type="text" name="title" required>
+    {% if title_error %}
+      <p class="error">{{ title_error }}</p>
+    {% endif %}
+  </label>
+
+  <label>
+    Blog Content: <input type="textarea" name="body" required>
+    {% if body_error %}
+      <p class="error">{{ body_error }}</p>
+    {% endif %}
+  </label>
+
+  <input type="submit" value="Post blog">
+</form>
+
+{% if new_post %}
+<h3>Latest Blog Entry</h3>
+<article>
+  <h1>{{ new_post.title }}</h1>
+  <time datetime="{{ new_post.created_at }}">{{ new_post.created_at }}</time>
+  <section>
+    <p>{{ new_post.body }}</p>
+  </section>
+</article>
+<hr>
+<hr>
+{% endif %}
+
+<h3>All Blog Posts</h3>
+{% for blog in blog_posts: %}
+  <ul>
+    <li>
+      <span>
+        {{ blog.created_at }}
+        <a href="/blog?title={{ blog.id }}">{{ blog.title }}</a>
+      </span>
+    </li>
+  </ul>
+{% endfor %}
