@@ -69,7 +69,6 @@ def blog_page(id):
 @app.route('/blog', methods=["GET"])
 def blog_page():
   blog_post_id = request.args.get('id')
-
   try:
     blog_post_id = int(blog_post_id) # only accept integer IDs to prevent trolling robots
   except ValueError:
